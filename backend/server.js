@@ -7,9 +7,8 @@ dotenv.config()
 
 const app = express()
 
-app.get("/" , ( req , res ) => {
-    res.send("Hello World !")
-})
+app.use(express.json()) // will allow us to parse req.body
+app.use(express.urlencoded({ extended : true }))
 
 app.use("/api/auth" , authRoute)
 
