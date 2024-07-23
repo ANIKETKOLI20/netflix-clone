@@ -1,20 +1,32 @@
-import express from 'express'
-import authRoute from './routes/auth.route.js'
-import dotenv from 'dotenv'
-import { connectMongoDB } from './db/connectMongoDB.js'
+import express from 'express';
+import authRoute from './routes/auth.route.js';
+import movieRoute from './routes/movie.route.js';
+import tvRoute from './routes/tv.route.js';
+import dotenv from 'dotenv';
+import { connectMongoDB } from './db/connectMongoDB.js';
 
-dotenv.config()
+// Load environment variables from .env file
+dotenv.config();
 
-const app = express()
+// Initialize express app
+const app = express();
 
-app.use(express.json()) // will allow us to parse req.body
-app.use(express.urlencoded({ extended : true }))
+// Middleware to parse JSON requests
+app.use(express.json());
 
-app.use("/api/auth" , authRoute)
+// Middleware to parse URL-encoded requests
+app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 5000
+// Define routes
+app.use("/api/auth", authRoute);
+app.use("/api/movies", movieRoute);
+app.use("/api/tv", tvRoute);
 
-app.listen(PORT , () => {
-    console.log(`Server running at ${PORT}`)
-    connectMongoDB()
-})
+// Set the port from environment variables or default to 5000
+const PORT = process.env.PORT || 5000;
+
+// Start the server and connect to MongoDB
+app.listen(PORT, () => {
+    console.log(`Server running at ${PORT}`);
+    connectMongoDB();
+});
