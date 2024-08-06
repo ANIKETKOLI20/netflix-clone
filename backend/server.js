@@ -6,6 +6,7 @@ import tvRoute from './routes/tv.route.js';
 import { protectRoute } from './middleware/protectRoute.js'
 import dotenv from 'dotenv';
 import { connectMongoDB } from './db/connectMongoDB.js';
+import cors from 'cors'
 import cookieParser from 'cookie-parser';
 
 // Load environment variables from .env file
@@ -16,6 +17,10 @@ const app = express();
 
 // Middleware to parse JSON requests
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    credentials: true, 
+  }));
 
 // Middleware to parse URL-encoded requests
 app.use(express.urlencoded({ extended: true }));

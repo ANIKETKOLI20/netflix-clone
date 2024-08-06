@@ -1,13 +1,16 @@
 import React from 'react'
 import HomeScreen from './HomeScreen'
 import AuthScreen from './AuthScreen'
+import { useAuthStore } from '../../store/authUser'
 
 function HomePage() {
-  const user = false
+  
+  const {  user } = useAuthStore()
+  
   return (
-    <div className='hero-bg h-screen text-white'>
+    <>
       {user? <HomeScreen/> : <AuthScreen/>}
-    </div>
+    </>
   )
 }
 
